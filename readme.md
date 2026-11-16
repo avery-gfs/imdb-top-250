@@ -35,10 +35,10 @@ CREATE TABLE director (
 );
 
 CREATE TABLE role (
-  id INTEGER PRIMARY KEY,
   movie_id INTEGER NOT NULL REFERENCES movie(id),
   person_id INTEGER NOT NULL REFERENCES person(id),
-  role_name TEXT
+  role_name TEXT,
+  PRIMARY KEY (movie_id, person_id, role_name)
 );
 ```
 
@@ -448,8 +448,6 @@ order by num_movies desc
 │ Charles Chaplin   │ Henry Bergman      │ 4          │
 │ Christopher Nolan │ Cillian Murphy     │ 4          │
 │ Christopher Nolan │ Michael Caine      │ 4          │
-│ Haruo Sotozaki    │ Ryan Bartley       │ 4          │
-│ Hikaru Kondô      │ Ryan Bartley       │ 4          │
 │ Ingmar Bergman    │ Bibi Andersson     │ 4          │
 │ Joe Russo         │ Chadwick Boseman   │ 4          │
 │ Joe Russo         │ Chris Evans        │ 4          │
