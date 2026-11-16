@@ -1,46 +1,6 @@
 As of Fall 2026
 
-## Schema
-
-```
-CREATE TABLE movie (
-  id INTEGER PRIMARY KEY,
-  title TEXT NOT NULL,
-  year INTEGER,
-  runtime INTEGER,
-  imdb_rank INTEGER
-);
-
-CREATE TABLE genre (
-  id INTEGER PRIMARY KEY,
-  name TEXT NOT NULL UNIQUE
-);
-
-CREATE TABLE movie_genre (
-  movie_id INTEGER NOT NULL REFERENCES movie(id),
-  genre_id INTEGER NOT NULL REFERENCES genre(id),
-  PRIMARY KEY (movie_id, genre_id)
-);
-
-CREATE TABLE person (
-  id INTEGER PRIMARY KEY,
-  name TEXT NOT NULL,
-  birth_year INTEGER
-);
-
-CREATE TABLE director (
-  movie_id INTEGER NOT NULL REFERENCES movie(id),
-  person_id INTEGER NOT NULL REFERENCES person(id),
-  PRIMARY KEY (movie_id, person_id)
-);
-
-CREATE TABLE role (
-  movie_id INTEGER NOT NULL REFERENCES movie(id),
-  person_id INTEGER NOT NULL REFERENCES person(id),
-  role_name TEXT,
-  PRIMARY KEY (movie_id, person_id, role_name)
-);
-```
+<img src="diagram.svg">
 
 ## Sample Queries
 
@@ -458,4 +418,46 @@ order by num_movies desc
 │ Martin Scorsese   │ Robert De Niro     │ 4          │
 │ Peter Jackson     │ Sala Baker         │ 4          │
 └───────────────────┴────────────────────┴────────────┘
+```
+
+## Schema
+
+```
+CREATE TABLE movie (
+  id INTEGER PRIMARY KEY,
+  title TEXT NOT NULL,
+  year INTEGER,
+  runtime INTEGER,
+  imdb_rank INTEGER
+);
+
+CREATE TABLE genre (
+  id INTEGER PRIMARY KEY,
+  name TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE movie_genre (
+  movie_id INTEGER NOT NULL REFERENCES movie(id),
+  genre_id INTEGER NOT NULL REFERENCES genre(id),
+  PRIMARY KEY (movie_id, genre_id)
+);
+
+CREATE TABLE person (
+  id INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  birth_year INTEGER
+);
+
+CREATE TABLE director (
+  movie_id INTEGER NOT NULL REFERENCES movie(id),
+  person_id INTEGER NOT NULL REFERENCES person(id),
+  PRIMARY KEY (movie_id, person_id)
+);
+
+CREATE TABLE role (
+  movie_id INTEGER NOT NULL REFERENCES movie(id),
+  person_id INTEGER NOT NULL REFERENCES person(id),
+  role_name TEXT,
+  PRIMARY KEY (movie_id, person_id, role_name)
+);
 ```
