@@ -110,49 +110,6 @@ SELECT count(*) as num_movies from movie
 └────────────┘
 ```
 
-### Number of Movies by Year 21st Century
-
-```sql
-SELECT year, count(*) as num_movies from movie
-where year >= 2000
-group by year
-order by year
-```
-
-```
-┌──────┬────────────┐
-│ year │ num_movies │
-├──────┼────────────┤
-│ 2000 │ 4          │
-│ 2001 │ 5          │
-│ 2002 │ 4          │
-│ 2003 │ 7          │
-│ 2004 │ 8          │
-│ 2005 │ 3          │
-│ 2006 │ 4          │
-│ 2007 │ 4          │
-│ 2008 │ 3          │
-│ 2009 │ 6          │
-│ 2010 │ 5          │
-│ 2011 │ 4          │
-│ 2012 │ 3          │
-│ 2013 │ 4          │
-│ 2014 │ 5          │
-│ 2015 │ 5          │
-│ 2016 │ 4          │
-│ 2017 │ 3          │
-│ 2018 │ 5          │
-│ 2019 │ 6          │
-│ 2020 │ 2          │
-│ 2021 │ 2          │
-│ 2022 │ 1          │
-│ 2023 │ 3          │
-│ 2024 │ 4          │
-│ 2025 │ 3          │
-│ 2026 │ 2          │
-└──────┴────────────┘
-```
-
 ### Top Movie Years
 
 ```sql
@@ -191,30 +148,28 @@ SELECT
     count(*) as num_movies,
     round(avg(runtime), 1) as avg_runtime,
     round(avg(imdb_rank), 1) as avg_rank,
-    movie.title as top_movie,
-    movie.year as top_movie_year,
-    min(imdb_rank) as top_movie_rank
+    movie.title as top_movie
 from movie
 group by decade
 order by decade
 ```
 
 ```
-┌────────┬────────────┬─────────────┬──────────┬────────────────────────────────────────────────┬────────────────┬────────────────┐
-│ decade │ num_movies │ avg_runtime │ avg_rank │                   top_movie                    │ top_movie_year │ top_movie_rank │
-├────────┼────────────┼─────────────┼──────────┼────────────────────────────────────────────────┼────────────────┼────────────────┤
-│ 1920   │ 6          │ 91.7        │ 193.2    │ Metropolis                                     │ 1927           │ 123            │
-│ 1930   │ 6          │ 123.7       │ 143.2    │ Modern Times                                   │ 1936           │ 53             │
-│ 1940   │ 9          │ 119.1       │ 124.3    │ It's a Wonderful Life                          │ 1946           │ 21             │
-│ 1950   │ 21         │ 126.3       │ 135.0    │ 12 Angry Men                                   │ 1957           │ 6              │
-│ 1960   │ 17         │ 145.2       │ 113.6    │ The Good, the Bad and the Ugly                 │ 1966           │ 11             │
-│ 1970   │ 17         │ 136.7       │ 129.0    │ The Godfather                                  │ 1972           │ 2              │
-│ 1980   │ 26         │ 131.7       │ 121.2    │ Star Wars: Episode V - The Empire Strikes Back │ 1980           │ 15             │
-│ 1990   │ 39         │ 126.8       │ 94.4     │ The Shawshank Redemption                       │ 1994           │ 1              │
-│ 2000   │ 48         │ 136.6       │ 124.0    │ The Dark Knight                                │ 2008           │ 3              │
-│ 2010   │ 44         │ 131.4       │ 138.7    │ Inception                                      │ 2010           │ 13             │
-│ 2020   │ 17         │ 142.5       │ 140.7    │ Spider-Man: Across the Spider-Verse            │ 2023           │ 44             │
-└────────┴────────────┴─────────────┴──────────┴────────────────────────────────────────────────┴────────────────┴────────────────┘
+┌────────┬────────────┬─────────────┬──────────┬────────────────────────────────────────────────┐
+│ decade │ num_movies │ avg_runtime │ avg_rank │                   top_movie                    │
+├────────┼────────────┼─────────────┼──────────┼────────────────────────────────────────────────┤
+│ 1920   │ 6          │ 91.7        │ 193.2    │ Metropolis                                     │
+│ 1930   │ 6          │ 123.7       │ 143.2    │ Modern Times                                   │
+│ 1940   │ 9          │ 119.1       │ 124.3    │ It's a Wonderful Life                          │
+│ 1950   │ 21         │ 126.3       │ 135.0    │ 12 Angry Men                                   │
+│ 1960   │ 17         │ 145.2       │ 113.6    │ The Good, the Bad and the Ugly                 │
+│ 1970   │ 17         │ 136.7       │ 129.0    │ The Godfather                                  │
+│ 1980   │ 26         │ 131.7       │ 121.2    │ Star Wars: Episode V - The Empire Strikes Back │
+│ 1990   │ 39         │ 126.8       │ 94.4     │ The Shawshank Redemption                       │
+│ 2000   │ 48         │ 136.6       │ 124.0    │ The Dark Knight                                │
+│ 2010   │ 44         │ 131.4       │ 138.7    │ Inception                                      │
+│ 2020   │ 17         │ 142.5       │ 140.7    │ Spider-Man: Across the Spider-Verse            │
+└────────┴────────────┴─────────────┴──────────┴────────────────────────────────────────────────┘
 ```
 
 ### Frequent Stars
@@ -422,7 +377,7 @@ order by films desc
 └──────────────────────┴───────┘
 ```
 
-### Divas
+### Directors who Acted
 
 ```sql
 SELECT person.name, movie.title, GROUP_CONCAT(role_name, ", ") as roles
