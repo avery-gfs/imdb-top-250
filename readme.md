@@ -135,9 +135,9 @@ order by decade
 ### Frequent Stars
 
 ```sql
-SELECT name, count(distinct role.movie_id) as num_movies from role
+SELECT person.name, count(distinct role.movie_id) as num_movies from role
 join person on person.id = role.person_id
-group by person_id
+group by person.id
 order by num_movies desc
 limit 20;
 ```
@@ -319,9 +319,7 @@ order by films desc
 ```sql
 SELECT person.name, movie.title, GROUP_CONCAT(role_name, ", ") as roles
 from director
-join role on
-    role.movie_id = director.movie_id
-    and role.person_id = director.person_id
+join role on role.movie_id = director.movie_id and role.person_id = director.person_id
 join person on person.id = director.person_id
 join movie on movie.id = director.movie_id
 group by person.name, movie.title
