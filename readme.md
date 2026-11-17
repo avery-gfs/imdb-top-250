@@ -273,14 +273,14 @@ limit 10
 └────────────────────┴────────────┴─────┴────────────────────────────────────┴──────┘
 ```
 
-### Repeat Directors
+### Frequent Directors
 
 ```sql
 SELECT person.name, count(*) AS films
 from director
 join person on person.id = director.person_id
 group by person.id
-having films >= 2
+having films >= 3
 order by films desc
 ```
 
@@ -311,29 +311,6 @@ order by films desc
 │ David Fincher        │ 3     │
 │ Clint Eastwood       │ 3     │
 │ Brad Bird            │ 3     │
-│ William Wyler        │ 2     │
-│ Victor Fleming       │ 2     │
-│ Sam Mendes           │ 2     │
-│ Ron Howard           │ 2     │
-│ Roman Polanski       │ 2     │
-│ Robert Zemeckis      │ 2     │
-│ Richard Linklater    │ 2     │
-│ Peter Weir           │ 2     │
-│ Miloš Forman         │ 2     │
-│ Mel Gibson           │ 2     │
-│ Joe Russo            │ 2     │
-│ James Mangold        │ 2     │
-│ Ingmar Bergman       │ 2     │
-│ Guy Ritchie          │ 2     │
-│ Fritz Lang           │ 2     │
-│ Frank Darabont       │ 2     │
-│ Frank Capra          │ 2     │
-│ David Lean           │ 2     │
-│ Chris Sanders        │ 2     │
-│ Buster Keaton        │ 2     │
-│ Bong Joon Ho         │ 2     │
-│ Anthony Russo        │ 2     │
-│ Andrew Stanton       │ 2     │
 └──────────────────────┴───────┘
 ```
 
