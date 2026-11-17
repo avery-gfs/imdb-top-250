@@ -135,38 +135,38 @@ order by decade
 ### Frequent Stars
 
 ```sql
-SELECT name, count(*) as num_roles from role
+SELECT name, count(distinct role.movie_id) as num_movies from role
 join person on person.id = role.person_id
 group by person_id
-order by num_roles desc
-limit 20
+order by num_movies desc
+limit 20;
 ```
 
 ```
-┌────────────────────┬───────────┐
-│        name        │ num_roles │
-├────────────────────┼───────────┤
-│ Robert De Niro     │ 9         │
-│ Mark Ruffalo       │ 7         │
-│ Harrison Ford      │ 7         │
-│ Tom Hanks          │ 6         │
-│ Morgan Freeman     │ 6         │
-│ Matt Damon         │ 6         │
-│ Leonardo DiCaprio  │ 6         │
-│ Clint Eastwood     │ 6         │
-│ Christian Bale     │ 6         │
-│ Charles Chaplin    │ 6         │
-│ Willem Dafoe       │ 5         │
-│ Toshirō Mifune     │ 5         │
-│ Tom Holland        │ 5         │
-│ Takashi Shimura    │ 5         │
-│ Scarlett Johansson │ 5         │
-│ Samuel L. Jackson  │ 5         │
-│ Robert Downey Jr.  │ 5         │
-│ John Ratzenberger  │ 5         │
-│ Don Cheadle        │ 5         │
-│ Brad Pitt          │ 5         │
-└────────────────────┴───────────┘
+┌───────────────────┬────────────┐
+│       name        │ num_movies │
+├───────────────────┼────────────┤
+│ Robert De Niro    │ 9          │
+│ Harrison Ford     │ 7          │
+│ Tom Hanks         │ 6          │
+│ Morgan Freeman    │ 6          │
+│ Matt Damon        │ 6          │
+│ Leonardo DiCaprio │ 6          │
+│ Takashi Shimura   │ 5          │
+│ Mark Ruffalo      │ 5          │
+│ John Ratzenberger │ 5          │
+│ Clint Eastwood    │ 5          │
+│ Christian Bale    │ 5          │
+│ Charles Chaplin   │ 5          │
+│ Brad Pitt         │ 5          │
+│ Willem Dafoe      │ 4          │
+│ Toshirō Mifune    │ 4          │
+│ Tom Hardy         │ 4          │
+│ Tatsuya Nakadai   │ 4          │
+│ Steve Buscemi     │ 4          │
+│ Samuel L. Jackson │ 4          │
+│ Orlando Bloom     │ 4          │
+└───────────────────┴────────────┘
 ```
 
 ### Movies per Genre
