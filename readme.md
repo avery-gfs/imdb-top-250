@@ -358,43 +358,45 @@ group by person.name, movie.title
 ### Director-Actor Pairs
 
 ```sql
-SELECT d.name AS director, a.name AS actor, count(*) AS num_movies
+SELECT
+  d.name AS director,
+  a.name AS actor,
+  count(distinct role.movie_id) AS num_movies
 from director
 join role on role.movie_id = director.movie_id
 join person d on d.id = director.person_id
 join person a on a.id = role.person_id
 where d.id != a.id
 group by director.person_id, role.person_id
-having num_movies >= 4
+having num_movies >= 3
 order by num_movies desc
 ```
 
 ```
-┌───────────────────┬────────────────────┬────────────┐
-│     director      │       actor        │ num_movies │
-├───────────────────┼────────────────────┼────────────┤
-│ Akira Kurosawa    │ Takashi Shimura    │ 5          │
-│ Akira Kurosawa    │ Toshirō Mifune     │ 5          │
-│ Christopher Nolan │ Christian Bale     │ 5          │
-│ Anthony Russo     │ Chadwick Boseman   │ 4          │
-│ Anthony Russo     │ Chris Evans        │ 4          │
-│ Anthony Russo     │ Don Cheadle        │ 4          │
-│ Anthony Russo     │ Mark Ruffalo       │ 4          │
-│ Anthony Russo     │ Robert Downey Jr.  │ 4          │
-│ Anthony Russo     │ Scarlett Johansson │ 4          │
-│ Charles Chaplin   │ Henry Bergman      │ 4          │
-│ Christopher Nolan │ Cillian Murphy     │ 4          │
-│ Christopher Nolan │ Michael Caine      │ 4          │
-│ Ingmar Bergman    │ Bibi Andersson     │ 4          │
-│ Joe Russo         │ Chadwick Boseman   │ 4          │
-│ Joe Russo         │ Chris Evans        │ 4          │
-│ Joe Russo         │ Don Cheadle        │ 4          │
-│ Joe Russo         │ Mark Ruffalo       │ 4          │
-│ Joe Russo         │ Robert Downey Jr.  │ 4          │
-│ Joe Russo         │ Scarlett Johansson │ 4          │
-│ Martin Scorsese   │ Robert De Niro     │ 4          │
-│ Peter Jackson     │ Sala Baker         │ 4          │
-└───────────────────┴────────────────────┴────────────┘
+┌──────────────────────┬───────────────────┬────────────┐
+│       director       │       actor       │ num_movies │
+├──────────────────────┼───────────────────┼────────────┤
+│ Akira Kurosawa       │ Takashi Shimura   │ 5          │
+│ Akira Kurosawa       │ Toshirō Mifune    │ 4          │
+│ Christopher Nolan    │ Christian Bale    │ 4          │
+│ Christopher Nolan    │ Cillian Murphy    │ 4          │
+│ Christopher Nolan    │ Michael Caine     │ 4          │
+│ Martin Scorsese      │ Robert De Niro    │ 4          │
+│ Akira Kurosawa       │ Daisuke Katō      │ 3          │
+│ Akira Kurosawa       │ Minoru Chiaki     │ 3          │
+│ Akira Kurosawa       │ Tatsuya Nakadai   │ 3          │
+│ Charles Chaplin      │ Henry Bergman     │ 3          │
+│ Christopher Nolan    │ Anne Hathaway     │ 3          │
+│ Christopher Nolan    │ Gary Oldman       │ 3          │
+│ Francis Ford Coppola │ Robert Duvall     │ 3          │
+│ Martin Scorsese      │ Frank Vincent     │ 3          │
+│ Martin Scorsese      │ Joe Pesci         │ 3          │
+│ Martin Scorsese      │ Leonardo DiCaprio │ 3          │
+│ Peter Jackson        │ Elijah Wood       │ 3          │
+│ Peter Jackson        │ Ian McKellen      │ 3          │
+│ Peter Jackson        │ Orlando Bloom     │ 3          │
+│ Peter Jackson        │ Sean Astin        │ 3          │
+└──────────────────────┴───────────────────┴────────────┘
 ```
 
 ## Schema
