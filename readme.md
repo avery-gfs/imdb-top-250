@@ -9,7 +9,7 @@ From `sample-queries.py`, run with `sqlite3 movies.sqlite` in `.mode box`.
 ### Top Movies
 
 ```sql
-SELECT * from movie
+select * from movie
 order by imdb_rank
 limit 10
 ```
@@ -34,7 +34,7 @@ limit 10
 ### Old Movies
 
 ```sql
-SELECT * from movie
+select * from movie
 order by year
 limit 10
 ```
@@ -59,7 +59,7 @@ limit 10
 ### Movie Count
 
 ```sql
-SELECT count(*) as num_movies from movie
+select count(*) as num_movies from movie
 ```
 
 ```
@@ -73,69 +73,67 @@ SELECT count(*) as num_movies from movie
 ### Top Movie Years
 
 ```sql
-SELECT
-    year,
-    count(*) as num_movies,
-    GROUP_CONCAT(title, ", ") as movies
-    from movie
+select
+  year,
+  count(*) as num_movies,
+  from movie
 group by year
 order by num_movies desc
 limit 10
 ```
 
 ```
-┌──────┬────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ year │ num_movies │                                                                                        movies                                                                                         │
-├──────┼────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ 2004 │ 8          │ Kill Bill: The Whole Bloody Affair, Eternal Sunshine of the Spotless Mind, Downfall, Howl's Moving Castle, Million Dollar Baby, The Incredibles, Before Sunset, Hotel Rwanda          │
-│ 1995 │ 8          │ Seven, The Usual Suspects, Toy Story, Braveheart, Heat, Casino, Before Sunrise, La haine                                                                                              │
-│ 2003 │ 7          │ The Lord of the Rings: The Return of the King, Oldboy, Kill Bill: Vol. 1, Finding Nemo, The Best of Youth, Memories of Murder, Pirates of the Caribbean: The Curse of the Black Pearl │
-│ 2019 │ 6          │ Parasite, Avengers: Endgame, Joker, 1917, Klaus, Ford v Ferrari                                                                                                                       │
-│ 2009 │ 6          │ Inglourious Basterds, 3 Idiots, Up, The Secret in Their Eyes, Mary and Max, Hachi: A Dog's Tale                                                                                       │
-│ 1999 │ 6          │ Fight Club, The Matrix, The Green Mile, American Beauty, The Sixth Sense, The Iron Giant                                                                                              │
-│ 1957 │ 6          │ 12 Angry Men, Witness for the Prosecution, Paths of Glory, The Bridge on the River Kwai, Wild Strawberries, The Seventh Seal                                                          │
-│ 2018 │ 5          │ Avengers: Infinity War, Spider-Man: Into the Spider-Verse, Capernaum, Green Book, Andhadhun                                                                                           │
-│ 2015 │ 5          │ Inside Out, Mad Max: Fury Road, Spotlight, Room, Drishyam                                                                                                                             │
-│ 2014 │ 5          │ Interstellar, Whiplash, The Grand Budapest Hotel, Gone Girl, Wild Tales                                                                                                               │
-└──────┴────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+┌──────┬────────────┐
+│ year │ num_movies │
+├──────┼────────────┤
+│ 2004 │ 8          │
+│ 1995 │ 8          │
+│ 2003 │ 7          │
+│ 2019 │ 6          │
+│ 2009 │ 6          │
+│ 1999 │ 6          │
+│ 1957 │ 6          │
+│ 2018 │ 5          │
+│ 2015 │ 5          │
+│ 2014 │ 5          │
+└──────┴────────────┘
 ```
 
 ### Decade Stats
 
 ```sql
-SELECT
-    (year / 10) * 10 as decade,
-    count(*) as num_movies,
-    round(avg(runtime), 1) as avg_runtime,
-    round(avg(imdb_rank), 1) as avg_rank,
-    movie.title as top_movie
+select
+  (year / 10) * 10 as decade,
+  count(*) as num_movies,
+  round(avg(runtime), 1) as avg_runtime,
+  movie.title as top_movie
 from movie
 group by decade
 order by decade
 ```
 
 ```
-┌────────┬────────────┬─────────────┬──────────┬────────────────────────────────────────────────┐
-│ decade │ num_movies │ avg_runtime │ avg_rank │                   top_movie                    │
-├────────┼────────────┼─────────────┼──────────┼────────────────────────────────────────────────┤
-│ 1920   │ 6          │ 91.7        │ 193.2    │ Metropolis                                     │
-│ 1930   │ 6          │ 123.7       │ 143.2    │ Modern Times                                   │
-│ 1940   │ 9          │ 119.1       │ 124.3    │ It's a Wonderful Life                          │
-│ 1950   │ 21         │ 126.3       │ 135.0    │ 12 Angry Men                                   │
-│ 1960   │ 17         │ 145.2       │ 113.6    │ The Good, the Bad and the Ugly                 │
-│ 1970   │ 17         │ 136.7       │ 129.0    │ The Godfather                                  │
-│ 1980   │ 26         │ 131.7       │ 121.2    │ Star Wars: Episode V - The Empire Strikes Back │
-│ 1990   │ 39         │ 126.8       │ 94.4     │ The Shawshank Redemption                       │
-│ 2000   │ 48         │ 136.6       │ 124.0    │ The Dark Knight                                │
-│ 2010   │ 44         │ 131.4       │ 138.7    │ Inception                                      │
-│ 2020   │ 17         │ 142.5       │ 140.7    │ Spider-Man: Across the Spider-Verse            │
-└────────┴────────────┴─────────────┴──────────┴────────────────────────────────────────────────┘
+┌────────┬────────────┬─────────────┬────────────────────────────────────────────────┐
+│ decade │ num_movies │ avg_runtime │                   top_movie                    │
+├────────┼────────────┼─────────────┼────────────────────────────────────────────────┤
+│ 1920   │ 6          │ 91.7        │ Metropolis                                     │
+│ 1930   │ 6          │ 123.7       │ Modern Times                                   │
+│ 1940   │ 9          │ 119.1       │ It's a Wonderful Life                          │
+│ 1950   │ 21         │ 126.3       │ 12 Angry Men                                   │
+│ 1960   │ 17         │ 145.2       │ The Good, the Bad and the Ugly                 │
+│ 1970   │ 17         │ 136.7       │ The Godfather                                  │
+│ 1980   │ 26         │ 131.7       │ Star Wars: Episode V - The Empire Strikes Back │
+│ 1990   │ 39         │ 126.8       │ The Shawshank Redemption                       │
+│ 2000   │ 48         │ 136.6       │ The Dark Knight                                │
+│ 2010   │ 44         │ 131.4       │ Inception                                      │
+│ 2020   │ 17         │ 142.5       │ Spider-Man: Across the Spider-Verse            │
+└────────┴────────────┴─────────────┴────────────────────────────────────────────────┘
 ```
 
 ### Frequent Stars
 
 ```sql
-SELECT person.name, count(distinct role.movie_id) as num_movies from role
+select person.name, count(distinct role.movie_id) as num_movies from role
 join person on person.id = role.person_id
 group by person.id
 order by num_movies desc
@@ -172,7 +170,7 @@ limit 20;
 ### Movies per Genre
 
 ```sql
-SELECT genre.name, count(*) AS num_movies
+select genre.name, count(*) as num_movies
 from genre
 join movie_genre on movie_genre.genre_id = genre.id
 group by genre.id
@@ -207,14 +205,45 @@ order by num_movies desc
 └───────────┴────────────┘
 ```
 
+### Monty Python and the Holy Grail Roles
+
+```sql
+select
+  person.name,
+  group_concat(role.role_name, ', ') as roles
+  from movie
+join role on role.movie_id = movie.id
+join person on person.id = role.person_id
+where movie.title = "Monty Python and the Holy Grail"
+group by person.name
+```
+
+```
+┌─────────────────┬──────────────────────────────────────────────────────────────────────────────┐
+│      name       │                                    roles                                     │
+├─────────────────┼──────────────────────────────────────────────────────────────────────────────┤
+│ Bee Duffell     │ Old Crone                                                                    │
+│ Carol Cleveland │ Zoot, Dingo                                                                  │
+│ Connie Booth    │ The Witch                                                                    │
+│ Eric Idle       │ Dead Collector, Peasant 1, Sir Robin the Not-Quite-So-Brave-as-Sir Launcelot │
+│ Graham Chapman  │ King Arthur, Voice of God, Middle Head                                       │
+│ John Cleese     │ Second Swallow-Savvy Guard, The Black Knight, Peasant 3                      │
+│ Michael Palin   │ First Swallow-Savvy Guard, Dennis, Peasant 2                                 │
+│ Neil Innes      │ First Monk, Singing Minstrel, Page Crushed by the Rabbit                     │
+│ Terry Gilliam   │ Patsy, Green Knight, Knight of Camelot                                       │
+│ Terry Jones     │ Dennis's Mother, Sir Bedevere, Knight of Camelot                             │
+└─────────────────┴──────────────────────────────────────────────────────────────────────────────┘
+```
+
 ### Young Stars
 
 ```sql
-SELECT
+select
   person.name,
   person.birth_year,
   movie.year - person.birth_year as age,
-  movie.title, movie.year
+  movie.title,
+  movie.year
   from person
 join role on person.id = role.person_id
 join movie on movie.id = role.movie_id
@@ -243,11 +272,12 @@ limit 10
 ### Old Stars
 
 ```sql
-SELECT
+select
   person.name,
   person.birth_year,
   movie.year - person.birth_year as age,
-  movie.title, movie.year
+  movie.title,
+  movie.year
   from person
 join role on person.id = role.person_id
 join movie on movie.id = role.movie_id
@@ -276,7 +306,7 @@ limit 10
 ### Frequent Directors
 
 ```sql
-SELECT person.name, count(*) AS films
+select person.name, count(*) as films
 from director
 join person on person.id = director.person_id
 group by person.id
@@ -317,7 +347,7 @@ order by films desc
 ### Directors who Acted
 
 ```sql
-SELECT person.name, movie.title, GROUP_CONCAT(role_name, ", ") as roles
+select person.name, movie.title, group_concat(role_name, ', ') as roles
 from director
 join role on role.movie_id = director.movie_id and role.person_id = director.person_id
 join person on person.id = director.person_id
@@ -356,10 +386,10 @@ group by person.name, movie.title
 ### Director-Actor Pairs
 
 ```sql
-SELECT
-  d.name AS director,
-  a.name AS actor,
-  count(distinct role.movie_id) AS num_movies
+select
+  d.name as director,
+  a.name as actor,
+  count(distinct role.movie_id) as num_movies
 from director
 join role on role.movie_id = director.movie_id
 join person d on d.id = director.person_id
