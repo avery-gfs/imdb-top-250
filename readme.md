@@ -1,10 +1,12 @@
-As of Fall 2026
+# IMDB Top 250: A Simple Database for Learning SQL
 
-<img src="diagram.svg">
+<img src="assets/diagram.svg">
+
+## Database Source
+
+IMDB [top 250 ranked movies](https://www.imdb.com/chart/top/), as of Fall 2026.
 
 ## Sample Queries
-
-From `sample-queries.py`, run with `sqlite3 movies.sqlite` in `.mode box`.
 
 ### Top Movies
 
@@ -205,7 +207,7 @@ order by num_movies desc
 └───────────┴────────────┘
 ```
 
-### Monty Python and the Holy Grail Roles
+### Holy Grail Roles
 
 ```sql
 select
@@ -427,7 +429,7 @@ order by num_movies desc
 └──────────────────────┴───────────────────┴────────────┘
 ```
 
-## Schema
+## Database Schema
 
 ```
 CREATE TABLE movie (
