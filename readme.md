@@ -86,10 +86,7 @@ select count(*) as num_movies from movie
 ### Top Movie Years
 
 ```sql
-select
-  year,
-  count(*) as num_movies,
-  from movie
+select year, count(*) as num_movies from movie
 group by year
 order by num_movies desc
 limit 10
