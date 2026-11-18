@@ -1,10 +1,21 @@
 # IMDB Top 250: A Simple Database for Learning SQL
 
+Data source: IMDB [top 250 ranked movies](https://www.imdb.com/chart/top/), as of Fall 2026.
+
+## Database Layout
+
 <img src="assets/diagram.svg">
 
-## Database Source
+## Tables
 
-IMDB [top 250 ranked movies](https://www.imdb.com/chart/top/), as of Fall 2026.
+| Name        | Rows |
+| ----------- | ---: |
+| director    |  287 |
+| genre       |   22 |
+| movie_genre |  632 |
+| movie       |  251 |
+| person      | 2258 |
+| role        | 2601 |
 
 ## Sample Queries
 
